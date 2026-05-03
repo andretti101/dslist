@@ -1,0 +1,51 @@
+package com.andretti101.dslist.entities;
+
+import jakarta.persistence.*;
+
+import java.util.Objects;
+
+@Embeddable
+public class BelongingPK {
+
+    @ManyToOne
+    @JoinColumn(name = "game_id")
+    private Game game;
+
+    @ManyToOne
+    @JoinColumn(name = "list_id")
+    private GameList list;
+
+    public BelongingPK(){}
+
+    public BelongingPK(Game game, GameList list) {
+        this.game = game;
+        this.list = list;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    public GameList getList() {
+        return list;
+    }
+
+    public void setList(GameList list) {
+        this.list = list;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof BelongingPK that)) return false;
+        return Objects.equals(getGame(), that.getGame()) && Objects.equals(getList(), that.getList());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getGame(), getList());
+    }
+}
